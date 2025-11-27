@@ -3,7 +3,7 @@ body {
   color: #212121;
   display: flex;
   justify-content: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .app-container {
@@ -12,7 +12,16 @@ body {
   margin: 50px;
 }
 
+/* EDIT PANEL  */
+
 .edit-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.personal-info,
+.education {
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
@@ -24,7 +33,7 @@ body {
   background-color: white;
   box-shadow: 0px 0px 20px rgb(200, 200, 200);
 
-  width: 800px;
+  width: 750px;
   height: 1000px;
 }
 

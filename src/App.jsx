@@ -3,13 +3,25 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-//display an input and having it auto refresh an html template beside it
 
 export default function App() {
+  const educations = [];
+  const professionnals = [];
+
+  console.log(educations);
+
+
   const [fullName, setFullName] = useState('Théophile Jachiet');
   const [email, setEmail] = useState('tjachiet@gmail.com');
   const [phoneNumber, setPhoneNumber] = useState('+33 6 07 88 78 98');
   const [adress, setAdress] = useState('33 rue de la paix 75001, Paris');
+
+  const [school, setSchool] = useState('BTS Audiovisuel');
+  const [degree, setDegree] = useState('Options métiers de l\'image');
+  const [schoolStartDate, setSchoolStartDate] = useState(2018);
+  const [schoolEndDate, setSchoolEndDate] = useState(2020);
+  const [schoolLocation, setSchoolLocation] = useState('Roubaix');
+
 
   function handleChange(setter) {
     return (e) => setter(e.target.value);
@@ -27,7 +39,11 @@ export default function App() {
           </div>
 
           <div className="education">
-            
+            <CustomInput id="school" description="School" value={school} onChange={handleChange(setSchool)} />
+            <CustomInput id="degree" description="Degree" value={degree} onChange={handleChange(setDegree)} />
+            <CustomInput id="start-date" description="Start Date" value={schoolStartDate} onChange={handleChange(setSchoolStartDate)} />
+            <CustomInput id="end-date" description="End Date" value={schoolEndDate} onChange={handleChange(setSchoolEndDate)} />
+            <CustomInput id="location" description="Location" value={schoolLocation} onChange={handleChange(setSchoolLocation)} />
           </div>
         </div>
 
@@ -43,7 +59,7 @@ export default function App() {
           </div>
 
           <div className="cv-section">
-            <EducationList />
+            <EducationList list={educations} />
           </div>
         </div>
       </div>
@@ -59,8 +75,10 @@ function CustomInput({ id, description, value, onChange }) {
   )
 }
 
-function EducationList() {
-  const educationItems = edcuations.map(education => {
+function EducationList({ list }) {
+  if (list.length === 0) return;
+  
+  const educationItems = list.map(education => {
     <li key={education.id}>
       <div className="entry-time-and-place">
         <p>{education.dates}</p>
@@ -73,7 +91,7 @@ function EducationList() {
       </div>
     </li>
   })
-  
+
   return (
     <article>
       <h2>Education</h2>
