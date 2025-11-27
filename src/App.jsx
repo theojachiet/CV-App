@@ -7,12 +7,18 @@ import './App.css'
 
 export default function App() {
   const [firstName, setFirstName] = useState('');
+
+  function handleChange(e) {
+    setFirstName(e.target.value);
+  }
+
   return (
     <>
-      <input type="text" />
+      <CustomInput value={firstName} onChange={handleChange}/>
+      <h1>{firstName}</h1>
     </>
   )
 }
-function customInput({ value, onChange }) {
-  return <input type="text" value={value} onChange={handleChange}/>
+function CustomInput({ value, onChange }) {
+  return ( <input type="text" value={value} onChange={onChange}/> )
 }

@@ -1,8 +1,10 @@
 body {
   background-color: #212121;
+  color: whitesmoke;
 }
 
 input {
-  background-color: whitesmoke;
+  background-color: gray;
   border: none;
+  color: inherit;
 }
