@@ -7,19 +7,32 @@ import './App.css'
 
 export default function App() {
   const [fullName, setFullName] = useState('Théophile Jachiet');
+  const [email, setEmail] = useState('tjachiet@gmail.com');
+  const [phoneNumber, setPhoneNumber] = useState('+33 6 07 88 78 98');
+  const [adress, setAdress] = useState('33 rue de la paix 75001, Paris');
 
-  function handleChange(e) {
-    setFullName(e.target.value);
+  function handleChange(setter) {
+    return (e) => setter(e.target.value);
   }
 
   return (
     <>
       <div className="app-container">
         <div className="edit-panel">
-          <CustomInput id="fullName" description="Full Name" value={fullName} onChange={handleChange} />
+          <CustomInput id="fullName" description="Full Name" value={fullName} onChange={handleChange(setFullName)} />
+          <CustomInput id="email" description="E-mail" value={email} onChange={handleChange(setEmail)} />
+          <CustomInput id="phone" description="Phone Number" value={phoneNumber} onChange={handleChange(setPhoneNumber)} />
+          <CustomInput id="adress" description="Adress" value={adress} onChange={handleChange(setAdress)} />
         </div>
         <div className="cv-container">
-          <h1>{fullName}</h1>
+          <div className="cv-Header">
+            <h1>{fullName}</h1>
+            <div className="info-container">
+              <p>{email}</p>
+              <p>{phoneNumber}</p>
+              <p>{adress}</p>
+          </div>
+          </div>
         </div>
       </div>
     </>
