@@ -1,10 +1,8 @@
 body {
-  background-color: #212121;
-  color: whitesmoke;
+  background-color: whitesmoke;
+  color: #212121;
 }
 
-input {
-  background-color: gray;
-  border: none;
-  color: inherit;
+.app-container {
+  display: flex;
 }
