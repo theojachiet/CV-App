@@ -16,7 +16,7 @@ export default function App() {
     <>
       <div className="app-container">
         <div className="edit-panel">
-          <CustomInput value={fullName} onChange={handleChange} />
+          <CustomInput id="fullName" description="Full Name" value={fullName} onChange={handleChange} />
         </div>
         <div className="cv-container">
           <h1>{fullName}</h1>
@@ -25,8 +25,10 @@ export default function App() {
     </>
   )
 }
-function CustomInput({ value, onChange }) {
+function CustomInput({ id, description, value, onChange }) {
   return (
-    <input type="text" value={value} onChange={onChange} />
+    <label htmlFor={id}>{description}
+      <input type="text" id={id} value={value} onChange={onChange} />
+    </label>
   )
 }
