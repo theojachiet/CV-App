@@ -24,14 +24,20 @@ export default function App() {
           <CustomInput id="phone" description="Phone Number" value={phoneNumber} onChange={handleChange(setPhoneNumber)} />
           <CustomInput id="adress" description="Adress" value={adress} onChange={handleChange(setAdress)} />
         </div>
+
         <div className="cv-container">
-          <div className="cv-Header">
+          <div className="cv-header">
             <h1>{fullName}</h1>
+
             <div className="info-container">
               <p>{email}</p>
               <p>{phoneNumber}</p>
               <p>{adress}</p>
+            </div>
           </div>
+
+          <div className="cv-section">
+
           </div>
         </div>
       </div>

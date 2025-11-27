@@ -3,6 +3,7 @@ body {
   color: #212121;
   display: flex;
   justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .app-container {
@@ -23,9 +24,27 @@ body {
   background-color: white;
   box-shadow: 0px 0px 20px rgb(200, 200, 200);
 
-  padding: 2rem;
   width: 800px;
   height: 1000px;
+}
+
+/* HEADER CV  */
+
+.cv-header {
+  background-color: rgb(5, 5, 80);
+  color: white;
+  padding: 2em;
+}
+
+.cv-header h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-around;
 }
 
 label {
