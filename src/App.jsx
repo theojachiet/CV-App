@@ -8,9 +8,6 @@ export default function App() {
   const educations = [];
   const professionnals = [];
 
-  console.log(educations);
-
-
   const [fullName, setFullName] = useState('Théophile Jachiet');
   const [email, setEmail] = useState('tjachiet@gmail.com');
   const [phoneNumber, setPhoneNumber] = useState('+33 6 07 88 78 98');
@@ -22,9 +19,25 @@ export default function App() {
   const [schoolEndDate, setSchoolEndDate] = useState(2020);
   const [schoolLocation, setSchoolLocation] = useState('Roubaix');
 
+  const btsRoubaix = {
+    id: crypto.randomUUID(),
+    school: school,
+    degree: degree,
+    schoolStartDate: schoolStartDate,
+    schoolEndDate: schoolEndDate,
+    schoolLocation: schoolLocation
+  }
+
+  educations.push(btsRoubaix);
 
   function handleChange(setter) {
     return (e) => setter(e.target.value);
+  }
+
+  function handleEducationCHange(setter) {
+    return (e) => {
+      setter(e.target.value);
+    }
   }
 
   return (
@@ -39,11 +52,11 @@ export default function App() {
           </div>
 
           <div className="education">
-            <CustomInput id="school" description="School" value={school} onChange={handleChange(setSchool)} />
-            <CustomInput id="degree" description="Degree" value={degree} onChange={handleChange(setDegree)} />
-            <CustomInput id="start-date" description="Start Date" value={schoolStartDate} onChange={handleChange(setSchoolStartDate)} />
-            <CustomInput id="end-date" description="End Date" value={schoolEndDate} onChange={handleChange(setSchoolEndDate)} />
-            <CustomInput id="location" description="Location" value={schoolLocation} onChange={handleChange(setSchoolLocation)} />
+            <CustomInput id="school" description="School" value={school} onChange={handleEducationCHange(setSchool, school)} />
+            <CustomInput id="degree" description="Degree" value={degree} onChange={handleEducationCHange(setDegree)} />
+            <CustomInput id="start-date" description="Start Date" value={schoolStartDate} onChange={handleEducationCHange(setSchoolStartDate)} />
+            <CustomInput id="end-date" description="End Date" value={schoolEndDate} onChange={handleEducationCHange(setSchoolEndDate)} />
+            <CustomInput id="location" description="Location" value={schoolLocation} onChange={handleEducationCHange(setSchoolLocation)} />
           </div>
         </div>
 
@@ -77,20 +90,22 @@ function CustomInput({ id, description, value, onChange }) {
 
 function EducationList({ list }) {
   if (list.length === 0) return;
-  
-  const educationItems = list.map(education => {
+
+  console.log(list);
+
+  const educationItems = list.map(education =>
     <li key={education.id}>
       <div className="entry-time-and-place">
-        <p>{education.dates}</p>
-        <p>{education.place}</p>
+        <p>{education.schoolStartDate} - {education.schoolEndDate}</p>
+        <p>{education.schoolLocation}</p>
       </div>
 
       <div className="entry-info">
         <p>{education.school}</p>
-        <p>{education.field}</p>
+        <p>{education.degree}</p>
       </div>
     </li>
-  })
+  )
 
   return (
     <article>
