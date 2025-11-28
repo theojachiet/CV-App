@@ -10,24 +10,45 @@ const educations = [];
 const professionnals = [];
 
 export default function App() {
-  const [displayAddEducation, setDisplayAddEducation] = useState(false);
 
   const [person, setPerson] = useState({
-    fullName:'Théophile Jachiet',
+    fullName: 'Théophile Jachiet',
     email: 'tjachiet@gmail.com',
     phoneNumber: '+33 6 85 74 84 92',
     adress: '33 rue de la paix, 75001, Paris'
-  })
+  });
 
-  function handleChange(e) {
+  const [educationList, setEducationList] = useState([]);
+
+  const [educationItem, setEducationItem] = useState({
+    school: '',
+    degree: '',
+    startDate: '',
+    endDate: '',
+    location: ''
+  });
+
+  function handlePersonalChange(e) {
     setPerson({
       ...person,
       [e.target.id]: e.target.value
     })
   }
 
+  function handleEducationCHange(e) {
+    setEducationItem({
+      ...educationItem,
+      [e.target.id]: e.target.value
+    })
+  }
+
   function handleAddEducation() {
-    setDisplayAddEducation(true);
+    setEducationList([
+      ...educationList,
+      setEducationItem({
+
+      })
+    ])
   }
 
   return (
@@ -35,15 +56,21 @@ export default function App() {
       <div className="app-container">
         <div className="edit-panel">
           <div className="personal-info">
-            <CustomInput id="fullName" description="Full Name" value={person.fullName} onChange={handleChange} />
-            <CustomInput id="email" description="E-mail" value={person.email} onChange={handleChange} />
-            <CustomInput id="phone" description="Phone Number" value={person.phoneNumber} onChange={handleChange} />
-            <CustomInput id="adress" description="Adress" value={person.adress} onChange={handleChange} />
+            <CustomInput id="fullName" description="Full Name" value={person.fullName} onChange={handlePersonalChange} />
+            <CustomInput id="email" description="E-mail" value={person.email} onChange={handlePersonalChange} />
+            <CustomInput id="phone" description="Phone Number" value={person.phoneNumber} onChange={handlePersonalChange} />
+            <CustomInput id="adress" description="Adress" value={person.adress} onChange={handlePersonalChange} />
           </div>
 
           <div className="education-panel">
+            <div className="education-form">
+              <CustomInput id="school" description="School" value={educationItem.school} onChange={handleEducationCHange} />
+              <CustomInput id="degree" description="Degree" value={educationItem.degree} onChange={handleEducationCHange} />
+              <CustomInput id="startDate" description="Start Date" value={educationItem.startDate} onChange={handleEducationCHange} />
+              <CustomInput id="endDate" description="End Date" value={educationItem.endDate} onChange={handleEducationCHange} />
+              <CustomInput id="location" description="Location" value={educationItem.location} onChange={handleEducationCHange} />
+            </div>
             <button className="add-education" onClick={handleAddEducation}>+</button>
-            {displayAddEducation && <EducationFactory/>}
           </div>
 
         </div>
@@ -60,7 +87,7 @@ export default function App() {
           </div>
 
           <div className="cv-section">
-            <EducationList list={educations} />
+            <EducationList list={educationList} />
           </div>
         </div>
       </div>
@@ -68,7 +95,7 @@ export default function App() {
   )
 }
 
-function EducationEditList({list}) {
+function EducationEditList({ list }) {
   const displayList = list.map(item =>
     <li key={item.id}>
       {item.school}
@@ -79,11 +106,6 @@ function EducationEditList({list}) {
 
 function EducationFactory() {
 
-  const [school, setSchool] = useState('BTS Audiovisuel');
-  const [degree, setDegree] = useState('Options métiers de l\'image');
-  const [schoolStartDate, setSchoolStartDate] = useState(2018);
-  const [schoolEndDate, setSchoolEndDate] = useState(2020);
-  const [schoolLocation, setSchoolLocation] = useState('Roubaix');
 
   function handleEducationCHange(setter) {
     return (e) => {
