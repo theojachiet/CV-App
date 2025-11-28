@@ -146,20 +146,59 @@ function EducationRenderList({ list }) {
 }
 
 function EducationEditList({ list, setList }) {
-  const displayedList = list.map(item =>
-    <li key={item.id}>
-      {item.school}
-      <button onClick={() => {
-        setList(
-          list.filter(entry =>
-            entry.id !== item.id
-          )
-        )
-      }}>Delete</button>
+
+  function handleDelete() {
+    setList(
+      list.filter(item =>
+        item.id !== e.target.id
+      )
+    )
+  }
+
+  function handleEdit() {
+
+  }
+
+  const displayedList = list.map(educationItem =>
+    <li key={educationItem.id}>
+      <EducationItemEdit item={educationItem} onDelete={handleDelete} />
     </li>
   );
 
   return (
     <ul>{displayedList}</ul>
   )
+}
+
+function EducationItemEdit({ item, onEdit, onDelete }) {
+  const [isEditing, setIsEditing] = useState(false);
+  let itemContent;
+
+  if (isEditing) {
+    itemContent = (
+      <>
+        <div className="education-form">
+          <CustomInput id="school" description="School" value={item.school} onChange={handleEducationCHange} />
+          <CustomInput id="degree" description="Degree" value={item.degree} onChange={handleEducationCHange} />
+          <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={handleEducationCHange} />
+          <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={handleEducationCHange} />
+          <CustomInput id="location" description="Location" value={item.location} onChange={handleEducationCHange} />
+          <button className="add-education" onClick={handleAddEducation}>+</button>
+        </div>
+        < button onClick={() => setIsEditing(false)}>Save</button >
+        <button onClick={onDelete}>Delete</button>
+      </>
+    )
+  } else {
+    itemContent = (
+      <>
+        {item.school}
+        < button onClick={() => setIsEditing(true)}>Edit</button >
+        <button onClick={onDelete}>Delete</button>
+      </>
+    )
+  }
+
+  return itemContent;
+
 }
