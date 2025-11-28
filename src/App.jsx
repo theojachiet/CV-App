@@ -12,13 +12,18 @@ const professionnals = [];
 export default function App() {
   const [displayAddEducation, setDisplayAddEducation] = useState(false);
 
-  const [fullName, setFullName] = useState('Théophile Jachiet');
-  const [email, setEmail] = useState('tjachiet@gmail.com');
-  const [phoneNumber, setPhoneNumber] = useState('+33 6 07 88 78 98');
-  const [adress, setAdress] = useState('33 rue de la paix 75001, Paris');
+  const [person, setPerson] = useState({
+    fullName:'Théophile Jachiet',
+    email: 'tjachiet@gmail.com',
+    phoneNumber: '+33 6 85 74 84 92',
+    adress: '33 rue de la paix, 75001, Paris'
+  })
 
-  function handleChange(setter) {
-    return (e) => setter(e.target.value);
+  function handleChange(e) {
+    setPerson({
+      ...person,
+      [e.target.id]: e.target.value
+    })
   }
 
   function handleAddEducation() {
@@ -30,13 +35,13 @@ export default function App() {
       <div className="app-container">
         <div className="edit-panel">
           <div className="personal-info">
-            <CustomInput id="fullName" description="Full Name" value={fullName} onChange={handleChange(setFullName)} />
-            <CustomInput id="email" description="E-mail" value={email} onChange={handleChange(setEmail)} />
-            <CustomInput id="phone" description="Phone Number" value={phoneNumber} onChange={handleChange(setPhoneNumber)} />
-            <CustomInput id="adress" description="Adress" value={adress} onChange={handleChange(setAdress)} />
+            <CustomInput id="fullName" description="Full Name" value={person.fullName} onChange={handleChange} />
+            <CustomInput id="email" description="E-mail" value={person.email} onChange={handleChange} />
+            <CustomInput id="phone" description="Phone Number" value={person.phoneNumber} onChange={handleChange} />
+            <CustomInput id="adress" description="Adress" value={person.adress} onChange={handleChange} />
           </div>
 
-          <div className="education-hidden">
+          <div className="education-panel">
             <button className="add-education" onClick={handleAddEducation}>+</button>
             {displayAddEducation && <EducationFactory/>}
           </div>
@@ -45,12 +50,12 @@ export default function App() {
 
         <div className="cv-container">
           <div className="cv-header">
-            <h1>{fullName}</h1>
+            <h1>{person.fullName}</h1>
 
             <div className="info-container">
-              <p>{email}</p>
-              <p>{phoneNumber}</p>
-              <p>{adress}</p>
+              <p>{person.email}</p>
+              <p>{person.phoneNumber}</p>
+              <p>{person.adress}</p>
             </div>
           </div>
 
@@ -61,6 +66,15 @@ export default function App() {
       </div>
     </>
   )
+}
+
+function EducationEditList({list}) {
+  const displayList = list.map(item =>
+    <li key={item.id}>
+      {item.school}
+    </li>
+  )
+  return <ul>{displayList}</ul>
 }
 
 function EducationFactory() {
@@ -89,7 +103,7 @@ function EducationFactory() {
   educations.push(btsRoubaix);
 
   return (
-    <div className="education">
+    <div className="education-form">
       <CustomInput id="school" description="School" value={school} onChange={handleEducationCHange(setSchool, school)} />
       <CustomInput id="degree" description="Degree" value={degree} onChange={handleEducationCHange(setDegree)} />
       <CustomInput id="start-date" description="Start Date" value={schoolStartDate} onChange={handleEducationCHange(setSchoolStartDate)} />
