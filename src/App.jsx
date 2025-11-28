@@ -147,10 +147,10 @@ function EducationRenderList({ list }) {
 
 function EducationEditList({ list, setList, onChange, onAdd }) {
 
-  function handleDelete() {
+  function handleDelete(targetId) {
     setList(
       list.filter(item =>
-        item.id !== e.target.id
+        item.id !== targetId
       )
     )
   }
@@ -190,7 +190,7 @@ function EducationItemEdit({ item, onEdit, onDelete, onAdd }) {
       <>
         {item.school}
         <button onClick={() => setIsEditing(true)}>Edit</button >
-        <button onClick={onDelete}>Delete</button>
+        <button onClick={() => onDelete(item.id)}>Delete</button>
       </>
     )
   }
