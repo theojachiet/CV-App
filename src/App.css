@@ -37,6 +37,10 @@ body {
   height: 1000px;
 }
 
+.education-list {
+  color: inherit;
+}
+
 /* HEADER CV  */
 
 .cv-header {

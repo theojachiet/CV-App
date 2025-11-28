@@ -81,8 +81,12 @@ export default function App() {
               <CustomInput id="startDate" description="Start Date" value={educationItem.startDate} onChange={handleEducationCHange} />
               <CustomInput id="endDate" description="End Date" value={educationItem.endDate} onChange={handleEducationCHange} />
               <CustomInput id="location" description="Location" value={educationItem.location} onChange={handleEducationCHange} />
+              <button className="add-education" onClick={handleAddEducation}>+</button>
             </div>
-            <button className="add-education" onClick={handleAddEducation}>+</button>
+          </div>
+
+          <div className="education-list">
+            <EducationEditList list={educationList}/>
           </div>
 
         </div>
@@ -138,5 +142,15 @@ function EducationRenderList({ list }) {
       <h2>Education</h2>
       <ul>{educationItems}</ul>
     </article>
+  )
+}
+
+function EducationEditList({list}) {
+  const displayedList = list.map(item =>
+    <li key={item.id}>{item.school}</li>
+  );
+
+  return(
+    <ul>{displayedList}</ul>
   )
 }
