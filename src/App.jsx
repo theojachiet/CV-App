@@ -3,12 +3,6 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-//TODO : Put all the education logic in a separate function and just display a + Button that triggers the education form to display itself 
-//and create a new education object and append it to the educations array.
-//Question : then how can i access the states of education in the App ? Is it even necessary ?
-const educations = [];
-const professionnals = [];
-
 export default function App() {
 
   const [person, setPerson] = useState({
@@ -18,7 +12,14 @@ export default function App() {
     adress: '33 rue de la paix, 75001, Paris'
   });
 
-  const [educationList, setEducationList] = useState([]);
+  const [educationList, setEducationList] = useState([{
+    id: crypto.randomUUID(),
+    school: 'BTS Audiovisuel',
+    degree: 'métiers de l\'image',
+    startDate: 2018,
+    endDate: 2020,
+    location: 'Roubaix'
+  }]);
 
   const [educationItem, setEducationItem] = useState({
     id: null,
