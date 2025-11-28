@@ -19,6 +19,13 @@ export default function App() {
     startDate: 2018,
     endDate: 2020,
     location: 'Roubaix'
+  }, {
+    id: crypto.randomUUID(),
+    school: 'MANCAV',
+    degree: 'Audiovisuel',
+    startDate: 2017,
+    endDate: 2018,
+    location: 'Sarlat-la-Canéda'
   }]);
 
   const [educationItem, setEducationItem] = useState({
@@ -114,13 +121,13 @@ function EducationRenderList({ list }) {
 
   const educationItems = list.map(education =>
     <li key={education.id}>
-      <div className="entry-time-and-place">
+      <div className="education-time-place">
         <p>{education.startDate} - {education.endDate}</p>
         <p>{education.location}</p>
       </div>
 
       <div className="entry-info">
-        <p>{education.school}</p>
+        <p><strong>{education.school}</strong></p>
         <p>{education.degree}</p>
       </div>
     </li>

@@ -60,3 +60,27 @@ label {
   display: flex;
   flex-direction: column;
 }
+
+/* BODY CV  */
+h2 {
+  text-align: center;
+  margin: 1rem;
+  font-weight: 500;
+  background-color: rgb(162, 162, 241);
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+li {
+  display: flex;
+  gap: 20px;
+}
+
+.education-time-place {
+  min-width: 150px;
+}
