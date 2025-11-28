@@ -44,7 +44,7 @@ export default function App() {
     })
   }
 
-  function handleEducationCHange(e) {
+  function handleEducationChange(e) {
     setEducationItem({
       ...educationItem,
       [e.target.id]: e.target.value
@@ -76,17 +76,17 @@ export default function App() {
 
           <div className="education-panel">
             <div className="education-form">
-              <CustomInput id="school" description="School" value={educationItem.school} onChange={handleEducationCHange} />
-              <CustomInput id="degree" description="Degree" value={educationItem.degree} onChange={handleEducationCHange} />
-              <CustomInput id="startDate" description="Start Date" value={educationItem.startDate} onChange={handleEducationCHange} />
-              <CustomInput id="endDate" description="End Date" value={educationItem.endDate} onChange={handleEducationCHange} />
-              <CustomInput id="location" description="Location" value={educationItem.location} onChange={handleEducationCHange} />
+              <CustomInput id="school" description="School" value={educationItem.school} onChange={handleEducationChange} />
+              <CustomInput id="degree" description="Degree" value={educationItem.degree} onChange={handleEducationChange} />
+              <CustomInput id="startDate" description="Start Date" value={educationItem.startDate} onChange={handleEducationChange} />
+              <CustomInput id="endDate" description="End Date" value={educationItem.endDate} onChange={handleEducationChange} />
+              <CustomInput id="location" description="Location" value={educationItem.location} onChange={handleEducationChange} />
               <button className="add-education" onClick={handleAddEducation}>+</button>
             </div>
           </div>
 
           <div className="education-list">
-            <EducationEditList list={educationList} setList={setEducationList} />
+            <EducationEditList list={educationList} setList={setEducationList} onChange={handleEducationChange} onAdd={handleAddEducation} />
           </div>
 
         </div>
@@ -145,7 +145,7 @@ function EducationRenderList({ list }) {
   )
 }
 
-function EducationEditList({ list, setList }) {
+function EducationEditList({ list, setList, onChange, onAdd }) {
 
   function handleDelete() {
     setList(
@@ -155,13 +155,9 @@ function EducationEditList({ list, setList }) {
     )
   }
 
-  function handleEdit() {
-
-  }
-
   const displayedList = list.map(educationItem =>
     <li key={educationItem.id}>
-      <EducationItemEdit item={educationItem} onDelete={handleDelete} />
+      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} onAdd={onAdd} />
     </li>
   );
 
@@ -170,7 +166,7 @@ function EducationEditList({ list, setList }) {
   )
 }
 
-function EducationItemEdit({ item, onEdit, onDelete }) {
+function EducationItemEdit({ item, onEdit, onDelete, onAdd }) {
   const [isEditing, setIsEditing] = useState(false);
   let itemContent;
 
@@ -178,12 +174,12 @@ function EducationItemEdit({ item, onEdit, onDelete }) {
     itemContent = (
       <>
         <div className="education-form">
-          <CustomInput id="school" description="School" value={item.school} onChange={handleEducationCHange} />
-          <CustomInput id="degree" description="Degree" value={item.degree} onChange={handleEducationCHange} />
-          <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={handleEducationCHange} />
-          <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={handleEducationCHange} />
-          <CustomInput id="location" description="Location" value={item.location} onChange={handleEducationCHange} />
-          <button className="add-education" onClick={handleAddEducation}>+</button>
+          <CustomInput id="school" description="School" value={item.school} onChange={onEdit} />
+          <CustomInput id="degree" description="Degree" value={item.degree} onChange={onEdit} />
+          <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={onEdit} />
+          <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={onEdit} />
+          <CustomInput id="location" description="Location" value={item.location} onChange={onEdit} />
+          <button className="add-education" onClick={onAdd}>+</button>
         </div>
         < button onClick={() => setIsEditing(false)}>Save</button >
         <button onClick={onDelete}>Delete</button>
@@ -193,7 +189,7 @@ function EducationItemEdit({ item, onEdit, onDelete }) {
     itemContent = (
       <>
         {item.school}
-        < button onClick={() => setIsEditing(true)}>Edit</button >
+        <button onClick={() => setIsEditing(true)}>Edit</button >
         <button onClick={onDelete}>Delete</button>
       </>
     )
