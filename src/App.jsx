@@ -86,7 +86,7 @@ export default function App() {
           </div>
 
           <div className="education-list">
-            <EducationEditList list={educationList}/>
+            <EducationEditList list={educationList} setList={setEducationList} />
           </div>
 
         </div>
@@ -145,12 +145,21 @@ function EducationRenderList({ list }) {
   )
 }
 
-function EducationEditList({list}) {
+function EducationEditList({ list, setList }) {
   const displayedList = list.map(item =>
-    <li key={item.id}>{item.school}</li>
+    <li key={item.id}>
+      {item.school}
+      <button onClick={() => {
+        setList(
+          list.filter(entry =>
+            entry.id !== item.id
+          )
+        )
+      }}>Delete</button>
+    </li>
   );
 
-  return(
+  return (
     <ul>{displayedList}</ul>
   )
 }
