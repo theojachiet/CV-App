@@ -95,45 +95,6 @@ export default function App() {
   )
 }
 
-function EducationEditList({ list }) {
-  const displayList = list.map(item =>
-    <li key={item.id}>
-      {item.school}
-    </li>
-  )
-  return <ul>{displayList}</ul>
-}
-
-function EducationFactory() {
-
-
-  function handleEducationCHange(setter) {
-    return (e) => {
-      setter(e.target.value);
-    }
-  }
-
-  const btsRoubaix = {
-    id: crypto.randomUUID(),
-    school: school,
-    degree: degree,
-    schoolStartDate: schoolStartDate,
-    schoolEndDate: schoolEndDate,
-    schoolLocation: schoolLocation
-  }
-
-  educations.push(btsRoubaix);
-
-  return (
-    <div className="education-form">
-      <CustomInput id="school" description="School" value={school} onChange={handleEducationCHange(setSchool, school)} />
-      <CustomInput id="degree" description="Degree" value={degree} onChange={handleEducationCHange(setDegree)} />
-      <CustomInput id="start-date" description="Start Date" value={schoolStartDate} onChange={handleEducationCHange(setSchoolStartDate)} />
-      <CustomInput id="end-date" description="End Date" value={schoolEndDate} onChange={handleEducationCHange(setSchoolEndDate)} />
-      <CustomInput id="location" description="Location" value={schoolLocation} onChange={handleEducationCHange(setSchoolLocation)} />
-    </div>
-  )
-}
 
 function CustomInput({ id, description, value, onChange }) {
   return (
