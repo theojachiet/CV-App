@@ -21,6 +21,7 @@ export default function App() {
   const [educationList, setEducationList] = useState([]);
 
   const [educationItem, setEducationItem] = useState({
+    id: null,
     school: '',
     degree: '',
     startDate: '',
@@ -43,11 +44,14 @@ export default function App() {
   }
 
   function handleAddEducation() {
+    setEducationItem({
+      ...educationItem,
+      id: crypto.randomUUID()
+    })
+
     setEducationList([
       ...educationList,
-      setEducationItem({
-
-      })
+      educationItem
     ])
   }
 
@@ -87,7 +91,7 @@ export default function App() {
           </div>
 
           <div className="cv-section">
-            <EducationList list={educationList} />
+            <EducationRenderList list={educationList} />
           </div>
         </div>
       </div>
@@ -104,14 +108,14 @@ function CustomInput({ id, description, value, onChange }) {
   )
 }
 
-function EducationList({ list }) {
+function EducationRenderList({ list }) {
   if (list.length === 0) return;
 
   const educationItems = list.map(education =>
     <li key={education.id}>
       <div className="entry-time-and-place">
-        <p>{education.schoolStartDate} - {education.schoolEndDate}</p>
-        <p>{education.schoolLocation}</p>
+        <p>{education.startDate} - {education.endDate}</p>
+        <p>{education.location}</p>
       </div>
 
       <div className="entry-info">
