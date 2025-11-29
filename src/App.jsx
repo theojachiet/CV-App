@@ -47,11 +47,6 @@ export default function App() {
   }
 
   function handleAddEducation(newEducation) {
-    setEducationItem({
-      ...newEducation,
-      id: crypto.randomUUID()
-    })
-
     setEducationList([
       ...educationList,
       newEducation
@@ -149,6 +144,7 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
     <>
       <ul>{displayedList}</ul>
       <button onClick={() => onAdd({
+        id: crypto.randomUUID(),
         school: '',
         degree: '',
         startDate: '',
