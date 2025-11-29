@@ -28,8 +28,6 @@ export default function App() {
     location: 'Sarlat-la-Canéda'
   }]);
 
-  const [educationItem, setEducationItem] = useState({});
-
   function handlePersonalChange(e) {
     setPerson({
       ...person,
@@ -53,6 +51,13 @@ export default function App() {
     ])
   }
 
+  function setItemNotNew(index) {
+    setEducationList(list => [
+      ...list.slice(0, index),
+      { ...list[index], isNew: false },
+      ...list.slice(index + 1)
+    ])
+  }
 
   return (
     <>
@@ -66,7 +71,7 @@ export default function App() {
           </div>
 
           <div className="education-list">
-            <EducationEditList list={educationList} setList={setEducationList} onChange={handleEducationChange} onAdd={handleAddEducation} />
+            <EducationEditList list={educationList} setList={setEducationList} onChange={handleEducationChange} onAdd={handleAddEducation} setItemNotNew={setItemNotNew} />
           </div>
 
         </div>
@@ -125,7 +130,7 @@ function EducationRenderList({ list }) {
   )
 }
 
-function EducationEditList({ list, setList, onChange, onAdd }) {
+function EducationEditList({ list, setList, onChange, onAdd, setItemNotNew }) {
 
   function handleDelete(targetId) {
     setList(
@@ -137,28 +142,38 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
 
   const displayedList = list.map((educationItem, index) =>
     <li key={educationItem.id}>
-      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} index={index} />
+      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} setItemNotNew={setItemNotNew} />
     </li>
   );
   return (
     <>
       <ul>{displayedList}</ul>
-      <button onClick={() => onAdd({
-        id: crypto.randomUUID(),
-        school: '',
-        degree: '',
-        startDate: '',
-        endDate: '',
-        location: ''
-      })}>Add</button>
+      <button onClick={() => {
+        onAdd({
+          id: crypto.randomUUID(),
+          school: '',
+          degree: '',
+          startDate: '',
+          endDate: '',
+          location: '',
+          isNew: true
+        })
+      }}>Add</button>
     </>
   )
 }
 
-function EducationItemEdit({ item, onEdit, onDelete, index }) {
+function EducationItemEdit({ item, onEdit, onDelete, index, setItemNotNew }) {
   const [isEditing, setIsEditing] = useState(false);
+
+  function handleSaveButton() {
+    setIsEditing(false);
+    setItemNotNew(index);
+  }
+
   let itemContent;
 
+  //Note for later : isNew is triggering everytime there is a change on an input field so it brings up an infinite loop
   if (isEditing) {
     itemContent = (
       <>
@@ -169,7 +184,7 @@ function EducationItemEdit({ item, onEdit, onDelete, index }) {
           <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => onEdit(index, 'endDate', e.target.value)} />
           <CustomInput id="location" description="Location" value={item.location} onChange={e => onEdit(index, 'location', e.target.value)} />
         </div>
-        < button onClick={() => setIsEditing(false)}>Save</button >
+        < button onClick={handleSaveButton}>Save</button >
         <button onClick={() => (onDelete(item.id))}>Delete</button>
       </>
     )
@@ -184,20 +199,4 @@ function EducationItemEdit({ item, onEdit, onDelete, index }) {
   }
 
   return itemContent;
-}
-
-function AddEducationItem({ onAdd, onChange }) {
-  return (
-    <>
-      <div className="education-form">
-        <CustomInput id="school" description="School" onChange={onChange} />
-        <CustomInput id="degree" description="Degree" onChange={onChange} />
-        <CustomInput id="startDate" description="Start Date" onChange={onChange} />
-        <CustomInput id="endDate" description="End Date" onChange={onChange} />
-        <CustomInput id="location" description="Location" onChange={onChange} />
-        <button className="add-education" onClick={onAdd}>+</button>
-      </div>
-    </>
-  )
-
 }
