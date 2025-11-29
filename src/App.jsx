@@ -63,6 +63,7 @@ export default function App() {
           </div>
 
           <div className="education-list">
+            <h3>Education</h3>
             <EducationEditList
               list={educationList}
               setList={setEducationList}
@@ -173,7 +174,7 @@ function EducationEditList({ list, setList, onChange, onAdd, setEditingId, editi
     return (
       <>
         <ul>{displayedList}</ul>
-        <button onClick={handleAddItem}>Add</button>
+        <img src='/src/assets/add.svg' onClick={handleAddItem} />
       </>
     )
   }
@@ -192,16 +193,19 @@ function EducationItemEdit({ item, onEdit, onDelete, id, editingId, setEditingId
           <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => onEdit(id, 'endDate', e.target.value)} />
           <CustomInput id="location" description="Location" value={item.location} onChange={e => onEdit(id, 'location', e.target.value)} />
         </div>
-        < button onClick={() => setEditingId(null)}>Save</button >
-        <button onClick={() => (onDelete(item.id))}>Delete</button>
+        <button onClick={() => setEditingId(null)}>Save <img src="/src/assets/save.svg" alt="save icon" /></button >
+        <img src='/src/assets/delete.svg' alt='delete icon' onClick={() => {
+          onDelete(item.id);
+          setEditingId(null);
+        }} />
       </>
     )
   } else {
     itemContent = (
       <>
         {item.school}
-        <button onClick={() => setEditingId(item.id)}>Edit</button >
-        <button onClick={() => onDelete(item.id)}>Delete</button>
+        <img src='/src/assets/edit.svg' alt='edit icon' onClick={() => setEditingId(item.id)} />
+        <img src='/src/assets/delete.svg' alt='delete icon' onClick={() => onDelete(item.id)} />
       </>
     )
   }
