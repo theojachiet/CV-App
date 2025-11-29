@@ -39,6 +39,7 @@ export default function App() {
 
   function handleEducationChange(index, key, value) {
     setEducationList(list => [
+      //Before and after the item and update the object here
       ...list.slice(0, index),
       { ...list[index], [key]: value},
       ...list.slice(index + 1)
@@ -131,6 +132,8 @@ function EducationRenderList({ list }) {
 
 function EducationEditList({ list, setList, onChange, onAdd }) {
 
+  const [isAdding, setIsAdding] = useState(false)
+
   function handleDelete(targetId) {
     setList(
       list.filter(item =>
@@ -145,12 +148,21 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
     </li>
   );
 
-  return (
-    <>
+  if(!isAdding) {
+    return (
+      <>
+      <ul>{displayedList}</ul>
+      <button onClick={() => setIsAdding(true)}>Add</button>
+      </>
+    )
+  } else {
+    return (
+      <>
       <ul>{displayedList}</ul>
       <AddEducationItem onChange={onChange} onAdd={onAdd} />
-    </>
-  )
+      </>
+    )
+  }
 }
 
 function EducationItemEdit({ item, onEdit, onDelete, index }) {
@@ -162,10 +174,10 @@ function EducationItemEdit({ item, onEdit, onDelete, index }) {
       <>
         <div className="education-form">
           <CustomInput id="school" description="School" value={item.school} onChange={e => onEdit(index, 'school', e.target.value)} />
-          <CustomInput id="degree" description="Degree" value={item.degree} onChange={e => {onEdit({...item, degree: e.target.value})}} />
-          <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={e => {onEdit({...item, startDate: e.target.value})}} />
-          <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => {onEdit({...item, endDate: e.target.value})}} />
-          <CustomInput id="location" description="Location" value={item.location} onChange={e => {onEdit({...item, location: e.target.value})}} />
+          <CustomInput id="degree" description="Degree" value={item.degree} onChange={e => onEdit(index, 'degree', e.target.value)} />
+          <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={e => onEdit(index, 'startDate', e.target.value)} />
+          <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => onEdit(index, 'endDate', e.target.value)} />
+          <CustomInput id="location" description="Location" value={item.location} onChange={e => onEdit(index, 'location', e.target.value)} />
         </div>
         < button onClick={() => setIsEditing(false)}>Save</button >
         <button onClick={() => (onDelete(item.id))}>Delete</button>
@@ -184,7 +196,7 @@ function EducationItemEdit({ item, onEdit, onDelete, index }) {
   return itemContent;
 }
 
-function AddEducationItem({ onChange, onAdd }) {
+function AddEducationItem({ onAdd, onChange }) {
   return (
     <>
       <div className="education-form">
