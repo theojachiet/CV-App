@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { startTransition, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -44,11 +44,19 @@ export default function App() {
     })
   }
 
-  function handleEducationChange(e) {
-    setEducationItem({
-      ...educationItem,
-      [e.target.id]: e.target.value
-    })
+  function handleEducationChange(itemToChange) {
+    console.log(educationList)
+    setEducationList(
+      educationList.map(educationitem => {
+        if (educationitem.id === itemToChange.id) {
+          return itemToChange;
+        } else {
+          return educationItem;
+        }
+      }
+
+      )
+    )
   }
 
   function handleAddEducation() {
@@ -166,11 +174,11 @@ function EducationItemEdit({ item, onEdit, onDelete }) {
     itemContent = (
       <>
         <div className="education-form">
-          <CustomInput id="school" description="School" value={item.school} onChange={onEdit} />
-          <CustomInput id="degree" description="Degree" value={item.degree} onChange={onEdit} />
-          <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={onEdit} />
-          <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={onEdit} />
-          <CustomInput id="location" description="Location" value={item.location} onChange={onEdit} />
+          <CustomInput id="school" description="School" value={item.school} onChange={e => {onEdit({...item, school: e.target.value})}} />
+          <CustomInput id="degree" description="Degree" value={item.degree} onChange={e => {onEdit({...item, degree: e.target.value})}} />
+          <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={e => {onEdit({...item, startDate: e.target.value})}} />
+          <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => {onEdit({...item, endDate: e.target.value})}} />
+          <CustomInput id="location" description="Location" value={item.location} onChange={e => {onEdit({...item, location: e.target.value})}} />
         </div>
         < button onClick={() => setIsEditing(false)}>Save</button >
         <button onClick={() => (onDelete(item.id))}>Delete</button>
