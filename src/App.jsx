@@ -1,6 +1,4 @@
-import { startTransition, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
 import './App.css'
 
 export default function App() {
@@ -9,7 +7,7 @@ export default function App() {
     fullName: 'Théophile Jachiet',
     email: 'tjachiet@gmail.com',
     phoneNumber: '+33 6 85 74 84 92',
-    adress: '33 rue de la paix, 75001, Paris'
+    address: '33 rue de la paix, 75001, Paris'
   });
 
   const [educationList, setEducationList] = useState([{
@@ -28,6 +26,7 @@ export default function App() {
     location: 'Sarlat-la-Canéda'
   }]);
 
+  const [editingId, setEditingId] = useState(null);
 
   function handlePersonalChange(e) {
     setPerson({
@@ -36,13 +35,13 @@ export default function App() {
     })
   }
 
-function handleEducationChange(id, key, value) {
-  setEducationList(list =>
-    list.map(item =>
-      item.id === id ? { ...item, [key]: value } : item
-    )
-  );
-}
+  function handleEducationChange(id, key, value) {
+    setEducationList(list =>
+      list.map(item =>
+        item.id === id ? { ...item, [key]: value } : item
+      )
+    );
+  }
 
   function handleAddEducation(newEducation) {
     setEducationList([
@@ -60,11 +59,18 @@ function handleEducationChange(id, key, value) {
             <CustomInput id="fullName" description="Full Name" value={person.fullName} onChange={handlePersonalChange} />
             <CustomInput id="email" description="E-mail" value={person.email} onChange={handlePersonalChange} />
             <CustomInput id="phoneNumber" description="Phone Number" value={person.phoneNumber} onChange={handlePersonalChange} />
-            <CustomInput id="adress" description="Adress" value={person.adress} onChange={handlePersonalChange} />
+            <CustomInput id="address" description="address" value={person.address} onChange={handlePersonalChange} />
           </div>
 
           <div className="education-list">
-            <EducationEditList list={educationList} setList={setEducationList} onChange={handleEducationChange} onAdd={handleAddEducation} />
+            <EducationEditList
+              list={educationList}
+              setList={setEducationList}
+              onChange={handleEducationChange}
+              onAdd={handleAddEducation}
+              setEditingId={setEditingId}
+              editingId={editingId}
+            />
           </div>
 
         </div>
@@ -76,7 +82,7 @@ function handleEducationChange(id, key, value) {
             <div className="info-container">
               <p>{person.email}</p>
               <p>{person.phoneNumber}</p>
-              <p>{person.adress}</p>
+              <p>{person.address}</p>
             </div>
           </div>
 
@@ -123,7 +129,7 @@ function EducationRenderList({ list }) {
   )
 }
 
-function EducationEditList({ list, setList, onChange, onAdd }) {
+function EducationEditList({ list, setList, onChange, onAdd, setEditingId, editingId }) {
 
   function handleDelete(targetId) {
     setList(
@@ -133,31 +139,37 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
     )
   }
 
+  function handleAddItem() {
+    const newId = crypto.randomUUID()
+    onAdd({
+      id: newId,
+      school: '',
+      degree: '',
+      startDate: '',
+      endDate: '',
+      location: ''
+    })
+
+    setEditingId(newId);
+  }
+
   const displayedList = list.map((educationItem) =>
     <li key={educationItem.id}>
-      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} id={educationItem.id} />
+      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} id={educationItem.id} setEditingId={setEditingId} editingId={editingId}/>
     </li>
   );
   return (
     <>
       <ul>{displayedList}</ul>
-      <button onClick={() => onAdd({
-        id: crypto.randomUUID(),
-        school: '',
-        degree: '',
-        startDate: '',
-        endDate: '',
-        location: ''
-      })}>Add</button>
+      <button onClick={handleAddItem}>Add</button>
     </>
   )
 }
 
-function EducationItemEdit({ item, onEdit, onDelete, id }) {
-  const [isEditing, setIsEditing] = useState(false);
+function EducationItemEdit({ item, onEdit, onDelete, id, editingId, setEditingId }) {
   let itemContent;
 
-  if (isEditing) {
+  if (id === editingId) {
     itemContent = (
       <>
         <div className="education-form">
@@ -167,7 +179,7 @@ function EducationItemEdit({ item, onEdit, onDelete, id }) {
           <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => onEdit(id, 'endDate', e.target.value)} />
           <CustomInput id="location" description="Location" value={item.location} onChange={e => onEdit(id, 'location', e.target.value)} />
         </div>
-        < button onClick={() => setIsEditing(false)}>Save</button >
+        < button onClick={() => setEditingId(null)}>Save</button >
         <button onClick={() => (onDelete(item.id))}>Delete</button>
       </>
     )
@@ -175,7 +187,7 @@ function EducationItemEdit({ item, onEdit, onDelete, id }) {
     itemContent = (
       <>
         {item.school}
-        <button onClick={() => setIsEditing(true)}>Edit</button >
+        <button onClick={() => setEditingId(item.id)}>Edit</button >
         <button onClick={() => onDelete(item.id)}>Delete</button>
       </>
     )
