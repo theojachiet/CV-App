@@ -74,7 +74,7 @@ export default function App() {
             <CustomInput id="adress" description="Adress" value={person.adress} onChange={handlePersonalChange} />
           </div>
 
-          <div className="education-panel">
+          {/* <div className="education-panel">
             <div className="education-form">
               <CustomInput id="school" description="School" value={educationItem.school} onChange={handleEducationChange} />
               <CustomInput id="degree" description="Degree" value={educationItem.degree} onChange={handleEducationChange} />
@@ -83,7 +83,7 @@ export default function App() {
               <CustomInput id="location" description="Location" value={educationItem.location} onChange={handleEducationChange} />
               <button className="add-education" onClick={handleAddEducation}>+</button>
             </div>
-          </div>
+          </div> */}
 
           <div className="education-list">
             <EducationEditList list={educationList} setList={setEducationList} onChange={handleEducationChange} onAdd={handleAddEducation} />
@@ -162,11 +162,14 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
   );
 
   return (
-    <ul>{displayedList}</ul>
+    <>
+      <ul>{displayedList}</ul>
+      <AddEducationItem onChange={onChange} onAdd={onAdd} />
+    </>
   )
 }
 
-function EducationItemEdit({ item, onEdit, onDelete, onAdd }) {
+function EducationItemEdit({ item, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   let itemContent;
 
@@ -179,7 +182,6 @@ function EducationItemEdit({ item, onEdit, onDelete, onAdd }) {
           <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={onEdit} />
           <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={onEdit} />
           <CustomInput id="location" description="Location" value={item.location} onChange={onEdit} />
-          <button className="add-education" onClick={onAdd}>+</button>
         </div>
         < button onClick={() => setIsEditing(false)}>Save</button >
         <button onClick={onDelete}>Delete</button>
@@ -196,5 +198,20 @@ function EducationItemEdit({ item, onEdit, onDelete, onAdd }) {
   }
 
   return itemContent;
+}
+
+function AddEducationItem({ onChange, onAdd }) {
+  return (
+    <>
+      <div className="education-form">
+        <CustomInput id="school" description="School" onChange={onChange} />
+        <CustomInput id="degree" description="Degree" onChange={onChange} />
+        <CustomInput id="startDate" description="Start Date" onChange={onChange} />
+        <CustomInput id="endDate" description="End Date" onChange={onChange} />
+        <CustomInput id="location" description="Location" onChange={onChange} />
+        <button className="add-education" onClick={onAdd}>+</button>
+      </div>
+    </>
+  )
 
 }
