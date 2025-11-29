@@ -28,14 +28,7 @@ export default function App() {
     location: 'Sarlat-la-Canéda'
   }]);
 
-  const [educationItem, setEducationItem] = useState({
-    id: null,
-    school: '',
-    degree: '',
-    startDate: '',
-    endDate: '',
-    location: ''
-  });
+  const [educationItem, setEducationItem] = useState({});
 
   function handlePersonalChange(e) {
     setPerson({
@@ -44,19 +37,12 @@ export default function App() {
     })
   }
 
-  function handleEducationChange(itemToChange) {
-    console.log(educationList)
-    setEducationList(
-      educationList.map(educationitem => {
-        if (educationitem.id === itemToChange.id) {
-          return itemToChange;
-        } else {
-          return educationItem;
-        }
-      }
-
-      )
-    )
+  function handleEducationChange(index, key, value) {
+    setEducationList(list => [
+      ...list.slice(0, index),
+      { ...list[index], [key]: value},
+      ...list.slice(index + 1)
+    ])
   }
 
   function handleAddEducation() {
@@ -70,6 +56,7 @@ export default function App() {
       educationItem
     ])
   }
+
 
   return (
     <>
@@ -152,9 +139,9 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
     )
   }
 
-  const displayedList = list.map(educationItem =>
+  const displayedList = list.map((educationItem, index) =>
     <li key={educationItem.id}>
-      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} onAdd={onAdd} />
+      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} index={index} />
     </li>
   );
 
@@ -166,7 +153,7 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
   )
 }
 
-function EducationItemEdit({ item, onEdit, onDelete }) {
+function EducationItemEdit({ item, onEdit, onDelete, index }) {
   const [isEditing, setIsEditing] = useState(false);
   let itemContent;
 
@@ -174,7 +161,7 @@ function EducationItemEdit({ item, onEdit, onDelete }) {
     itemContent = (
       <>
         <div className="education-form">
-          <CustomInput id="school" description="School" value={item.school} onChange={e => {onEdit({...item, school: e.target.value})}} />
+          <CustomInput id="school" description="School" value={item.school} onChange={e => onEdit(index, 'school', e.target.value)} />
           <CustomInput id="degree" description="Degree" value={item.degree} onChange={e => {onEdit({...item, degree: e.target.value})}} />
           <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={e => {onEdit({...item, startDate: e.target.value})}} />
           <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => {onEdit({...item, endDate: e.target.value})}} />
