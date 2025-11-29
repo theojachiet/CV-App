@@ -51,14 +51,6 @@ export default function App() {
     ])
   }
 
-  function setItemNotNew(index) {
-    setEducationList(list => [
-      ...list.slice(0, index),
-      { ...list[index], isNew: false },
-      ...list.slice(index + 1)
-    ])
-  }
-
   return (
     <>
       <div className="app-container">
@@ -71,7 +63,7 @@ export default function App() {
           </div>
 
           <div className="education-list">
-            <EducationEditList list={educationList} setList={setEducationList} onChange={handleEducationChange} onAdd={handleAddEducation} setItemNotNew={setItemNotNew} />
+            <EducationEditList list={educationList} setList={setEducationList} onChange={handleEducationChange} onAdd={handleAddEducation} />
           </div>
 
         </div>
@@ -130,7 +122,7 @@ function EducationRenderList({ list }) {
   )
 }
 
-function EducationEditList({ list, setList, onChange, onAdd, setItemNotNew }) {
+function EducationEditList({ list, setList, onChange, onAdd }) {
 
   function handleDelete(targetId) {
     setList(
@@ -142,7 +134,7 @@ function EducationEditList({ list, setList, onChange, onAdd, setItemNotNew }) {
 
   const displayedList = list.map((educationItem, index) =>
     <li key={educationItem.id}>
-      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} setItemNotNew={setItemNotNew} />
+      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} />
     </li>
   );
   return (
@@ -156,24 +148,17 @@ function EducationEditList({ list, setList, onChange, onAdd, setItemNotNew }) {
           startDate: '',
           endDate: '',
           location: '',
-          isNew: true
         })
       }}>Add</button>
     </>
   )
 }
 
-function EducationItemEdit({ item, onEdit, onDelete, index, setItemNotNew }) {
+function EducationItemEdit({ item, onEdit, onDelete, index }) {
   const [isEditing, setIsEditing] = useState(false);
-
-  function handleSaveButton() {
-    setIsEditing(false);
-    setItemNotNew(index);
-  }
 
   let itemContent;
 
-  //Note for later : isNew is triggering everytime there is a change on an input field so it brings up an infinite loop
   if (isEditing) {
     itemContent = (
       <>
@@ -184,7 +169,7 @@ function EducationItemEdit({ item, onEdit, onDelete, index, setItemNotNew }) {
           <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => onEdit(index, 'endDate', e.target.value)} />
           <CustomInput id="location" description="Location" value={item.location} onChange={e => onEdit(index, 'location', e.target.value)} />
         </div>
-        < button onClick={handleSaveButton}>Save</button >
+        < button onClick={() => setIsEditing(false)}>Save</button >
         <button onClick={() => (onDelete(item.id))}>Delete</button>
       </>
     )
