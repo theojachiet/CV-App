@@ -28,6 +28,7 @@ export default function App() {
     location: 'Sarlat-la-Canéda'
   }]);
 
+
   function handlePersonalChange(e) {
     setPerson({
       ...person,
@@ -50,6 +51,7 @@ export default function App() {
       newEducation
     ])
   }
+
 
   return (
     <>
@@ -134,29 +136,26 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
 
   const displayedList = list.map((educationItem, index) =>
     <li key={educationItem.id}>
-      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} />
+      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} index={index} />
     </li>
   );
   return (
     <>
       <ul>{displayedList}</ul>
-      <button onClick={() => {
-        onAdd({
-          id: crypto.randomUUID(),
-          school: '',
-          degree: '',
-          startDate: '',
-          endDate: '',
-          location: '',
-        })
-      }}>Add</button>
+      <button onClick={() => onAdd({
+        id: crypto.randomUUID(),
+        school: '',
+        degree: '',
+        startDate: '',
+        endDate: '',
+        location: ''
+      })}>Add</button>
     </>
   )
 }
 
 function EducationItemEdit({ item, onEdit, onDelete, index }) {
   const [isEditing, setIsEditing] = useState(false);
-
   let itemContent;
 
   if (isEditing) {
