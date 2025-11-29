@@ -153,17 +153,30 @@ function EducationEditList({ list, setList, onChange, onAdd, setEditingId, editi
     setEditingId(newId);
   }
 
-  const displayedList = list.map((educationItem) =>
-    <li key={educationItem.id}>
-      <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} id={educationItem.id} setEditingId={setEditingId} editingId={editingId}/>
-    </li>
-  );
-  return (
-    <>
-      <ul>{displayedList}</ul>
-      <button onClick={handleAddItem}>Add</button>
-    </>
-  )
+  //Edit Mode on a Single Item
+  if (editingId) {
+    const editedItem = list.find(element => element.id === editingId);
+    return (
+      <li key={editedItem.id}>
+        <EducationItemEdit item={editedItem} onDelete={handleDelete} onEdit={onChange} id={editedItem.id} setEditingId={setEditingId} editingId={editingId} />
+      </li>
+    )
+  }
+
+  //Display Mode for all the elements
+  else {
+    const displayedList = list.map((educationItem) =>
+      <li key={educationItem.id}>
+        <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} id={educationItem.id} setEditingId={setEditingId} editingId={editingId} />
+      </li>
+    );
+    return (
+      <>
+        <ul>{displayedList}</ul>
+        <button onClick={handleAddItem}>Add</button>
+      </>
+    )
+  }
 }
 
 function EducationItemEdit({ item, onEdit, onDelete, id, editingId, setEditingId }) {
