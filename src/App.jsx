@@ -41,20 +41,20 @@ export default function App() {
     setEducationList(list => [
       //Before and after the item and update the object here
       ...list.slice(0, index),
-      { ...list[index], [key]: value},
+      { ...list[index], [key]: value },
       ...list.slice(index + 1)
     ])
   }
 
-  function handleAddEducation() {
+  function handleAddEducation(newEducation) {
     setEducationItem({
-      ...educationItem,
+      ...newEducation,
       id: crypto.randomUUID()
     })
 
     setEducationList([
       ...educationList,
-      educationItem
+      newEducation
     ])
   }
 
@@ -132,8 +132,6 @@ function EducationRenderList({ list }) {
 
 function EducationEditList({ list, setList, onChange, onAdd }) {
 
-  const [isAdding, setIsAdding] = useState(false)
-
   function handleDelete(targetId) {
     setList(
       list.filter(item =>
@@ -147,22 +145,18 @@ function EducationEditList({ list, setList, onChange, onAdd }) {
       <EducationItemEdit item={educationItem} onDelete={handleDelete} onEdit={onChange} index={index} />
     </li>
   );
-
-  if(!isAdding) {
-    return (
-      <>
+  return (
+    <>
       <ul>{displayedList}</ul>
-      <button onClick={() => setIsAdding(true)}>Add</button>
-      </>
-    )
-  } else {
-    return (
-      <>
-      <ul>{displayedList}</ul>
-      <AddEducationItem onChange={onChange} onAdd={onAdd} />
-      </>
-    )
-  }
+      <button onClick={() => onAdd({
+        school: '',
+        degree: '',
+        startDate: '',
+        endDate: '',
+        location: ''
+      })}>Add</button>
+    </>
+  )
 }
 
 function EducationItemEdit({ item, onEdit, onDelete, index }) {
