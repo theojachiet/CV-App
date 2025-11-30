@@ -3,6 +3,7 @@ import './App.css'
 import './CV.css'
 import { EducationRenderList, EducationEditList } from './Education.jsx';
 import { CustomInput } from './utils.jsx';
+import { ExperienceRenderList, ExperienceEditList } from './Experience.jsx';
 
 export default function App() {
 
@@ -29,9 +30,21 @@ export default function App() {
     location: 'Sarlat-la-Canéda'
   }]);
 
+  const [experienceList, setExperienceList] = useState([{
+    id: crypto.randomUUID(),
+    company: 'France Travail',
+    position: 'Electricien éclairagiste',
+    startDate: 2020,
+    endDate: 'present',
+    location: 'Paris',
+    description: 'qsdmlfkj qosfj lqkmdsfj klqdshfk ljqsdhflkj qdsflkjh qkjlsdfh kjlqsh f klqhs fdk ljqshfkjl qdsiul fu zaioufqdsioufh iouq sdhfiuoqsdfiouqdshiuof dhsq'
+  }])
+
   const [editingId, setEditingId] = useState(null);
   const [educationIsExpanded, setEducationIsExpanded] = useState(false);
+  const [experienceIsExpanded, setExperienceIsExpanded] = useState(false);
 
+  //Handle changes
   function handlePersonalChange(e) {
     setPerson({
       ...person,
@@ -47,10 +60,26 @@ export default function App() {
     );
   }
 
+  function handleExperienceChange(id, key, value) {
+    setExperienceList(list =>
+      list.map(item =>
+        item.id === id ? { ...item, [key]: value } : item
+      )
+    );
+  }
+
+  //handle Adding items
   function handleAddEducation(newEducation) {
     setEducationList([
       ...educationList,
       newEducation
+    ])
+  }
+
+  function handleAddExperience(newExperience) {
+    setExperienceList([
+      ...experienceList,
+      newExperience
     ])
   }
 
@@ -63,6 +92,21 @@ export default function App() {
       startDate: '',
       endDate: '',
       location: ''
+    })
+
+    setEditingId(newId);
+  }
+
+  function createNewExperience() {
+    const newId = crypto.randomUUID()
+    handleAddExperience({
+      id: newId,
+      company: '',
+      position: '',
+      startDate: '',
+      endDate: '',
+      location: '',
+      description: ''
     })
 
     setEditingId(newId);
@@ -88,6 +132,26 @@ export default function App() {
     {addEducationContent}
   </>
 
+  let addExperienceContent;
+  if (experienceIsExpanded) {
+    if (!editingId) {
+      addExperienceContent = <div className="add-experience-section">
+        <button onClick={createNewExperience}><img src='/src/assets/add.svg' alt='Plus icon' />Experience</button>
+      </div>
+    }
+  }
+
+  let experienceContent = <>
+    <ExperienceEditList
+      list={experienceList}
+      setList={setExperienceList}
+      onChange={handleExperienceChange}
+      setEditingId={setEditingId}
+      editingId={editingId}
+    />
+    {addExperienceContent}
+  </>
+
   return (
     <>
       <div className="app-container">
@@ -102,10 +166,18 @@ export default function App() {
 
           <div className="education-list">
             <button onClick={() => setEducationIsExpanded(!educationIsExpanded)} className={`education-toggle ${(educationIsExpanded) ? "open" : ""}`}>
-                <h3><img src="/src/assets/education.svg" alt="graduation hat" />Education</h3>
-                <img src="/src/assets/down.svg" alt="down arrow icon" className={`arrow ${educationIsExpanded ? "rotated" : ""}`}/>
+              <h3><img src="/src/assets/education.svg" alt="graduation hat" />Education</h3>
+              <img src="/src/assets/down.svg" alt="down arrow icon" className={`arrow ${educationIsExpanded ? "rotated" : ""}`} />
             </button>
             <div className={`education-content ${educationIsExpanded ? "expanded" : ""}`}>{educationContent}</div>
+          </div>
+
+          <div className="experience-list">
+            <button onClick={() => setExperienceIsExpanded(!experienceIsExpanded)} className={`experience-toggle ${(experienceIsExpanded) ? "open" : ""}`}>
+              <h3><img src="/src/assets/education.svg" alt="graduation hat" />Professionnal Experiences</h3>
+              <img src="/src/assets/down.svg" alt="down arrow icon" className={`arrow ${experienceIsExpanded ? "rotated" : ""}`} />
+            </button>
+            <div className={`experience-content ${experienceIsExpanded ? "expanded" : ""}`}>{experienceContent}</div>
           </div>
 
         </div>
@@ -123,6 +195,7 @@ export default function App() {
 
           <div className="cv-section">
             <EducationRenderList list={educationList} />
+            <ExperienceRenderList list={experienceList} />
           </div>
         </div>
       </div>

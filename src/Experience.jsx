@@ -41,7 +41,7 @@ export function ExperienceEditList({ list, setList, onChange, setEditingId, edit
         const editedItem = list.find(element => element.id === editingId);
         return (
             <li key={editedItem.id} className='editing-item'>
-                <EducationItemEdit item={editedItem} onDelete={handleDelete} onEdit={onChange} id={editedItem.id} setEditingId={setEditingId} editingId={editingId} />
+                <ExperienceItemEdit item={editedItem} onDelete={handleDelete} onEdit={onChange} id={editedItem.id} setEditingId={setEditingId} editingId={editingId} />
             </li>
         )
     }
