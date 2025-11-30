@@ -206,13 +206,14 @@ function EducationItemEdit({ item, onEdit, onDelete, id, editingId, setEditingId
           <CustomInput id="location" description="Location" value={item.location} onChange={e => onEdit(id, 'location', e.target.value)} />
         </div>
         <div className="options">
-          <button onClick={() => setEditingId(null)}>Save <img src="/src/assets/save.svg" alt="save icon" /></button >
-          <button onClick={() => {
-            onDelete(item.id);
-            setEditingId(null);
-          }}>
-            <img src='/src/assets/delete.svg' alt='delete icon' />
+          <button className='delete'
+            onClick={() => {
+              onDelete(item.id);
+              setEditingId(null);
+            }}>
+            <img src='/src/assets/delete.svg' alt='delete icon' />Delete
           </button>
+          <button onClick={() => setEditingId(null)} className='save'><img src="/src/assets/save.svg" alt="save icon" />Save</button >
         </div>
       </>
     )
