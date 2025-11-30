@@ -12,18 +12,40 @@ body {
   margin: 50px;
 }
 
+/* GENERAL STYLING  */
+label {
+  gap: 5px;
+  font-weight: 500;
+}
+
+input {
+  font-weight: 300;
+  font-size: 0.9rem;
+  padding: 5px;
+  padding-left: 10px;
+  border: none;
+  background-color: rgb(242, 242, 242);
+  border-radius: 5px;
+}
+
 /* EDIT PANEL  */
+
+/* PERSONAL DETAILS  */
 
 .edit-panel {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 400px;
 }
 
 .personal-info,
 .education {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   background-color: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgb(200, 200, 200);
   height: fit-content;
@@ -37,54 +59,8 @@ body {
   height: 1000px;
 }
 
+/* EDUCATION LIST  */
+
 .education-list {
   color: inherit;
-}
-
-/* HEADER CV  */
-
-.cv-header {
-  background-color: rgb(5, 5, 80);
-  color: white;
-  padding: 2em;
-}
-
-.cv-header h1 {
-  text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.info-container {
-  display: flex;
-  justify-content: space-around;
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-}
-
-/* BODY CV  */
-h2 {
-  text-align: center;
-  margin: 1rem;
-  font-weight: 500;
-  background-color: rgb(162, 162, 241);
-}
-
-ul {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-li {
-  display: flex;
-  gap: 20px;
-}
-
-.education-time-place {
-  min-width: 150px;
 }
