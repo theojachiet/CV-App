@@ -28,6 +28,10 @@ input {
   border-radius: 5px;
 }
 
+.edit-panel ul {
+  padding: 0;
+}
+
 /* EDIT PANEL  */
 
 /* PERSONAL DETAILS  */
@@ -59,3 +63,37 @@ input {
 }
 
 /* EDUCATION LIST  */
+
+.education-header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.education-header h3 {
+  display: flex;
+  gap: 1rem;
+}
+
+.education-list ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0px;
+}
+
+.education-list li {
+  background-color: white;
+  padding: 12px 25px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.education-list li .options {
+  display: flex;
+  gap: 1rem;
+}

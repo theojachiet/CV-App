@@ -211,9 +211,13 @@ function EducationItemEdit({ item, onEdit, onDelete, id, editingId, setEditingId
   } else {
     itemContent = (
       <>
-        {item.school}
-        <button onClick={() => setEditingId(item.id)}><img src='/src/assets/edit.svg' alt='edit icon' /></button>
-        <button onClick={() => onDelete(item.id)}><img src='/src/assets/delete.svg' alt='delete icon' /></button>
+        <p>
+          {item.school}
+        </p>
+        <div className="options">
+          <button onClick={() => setEditingId(item.id)}><img src='/src/assets/edit.svg' alt='edit icon' /></button>
+          <button onClick={() => onDelete(item.id)}><img src='/src/assets/delete.svg' alt='delete icon' /></button>
+        </div>
       </>
     )
   }
