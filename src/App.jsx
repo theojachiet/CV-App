@@ -76,7 +76,7 @@ export default function App() {
       </div>
     }
   }
-  
+
   let educationContent = <>
     <EducationEditList
       list={educationList}
@@ -101,11 +101,9 @@ export default function App() {
           </div>
 
           <div className="education-list">
-            <button onClick={() => setEducationIsExpanded(!educationIsExpanded)}>
-              <div className="education-header">
+            <button onClick={() => setEducationIsExpanded(!educationIsExpanded)} className={`education-toggle ${(educationIsExpanded) ? "open" : ""}`}>
                 <h3><img src="/src/assets/education.svg" alt="graduation hat" />Education</h3>
-                <img src="/src/assets/down.svg" alt="down arrow icon" />
-              </div>
+                <img src="/src/assets/down.svg" alt="down arrow icon" className={`arrow ${educationIsExpanded ? "rotated" : ""}`}/>
             </button>
             <div className={`education-content ${educationIsExpanded ? "expanded" : ""}`}>{educationContent}</div>
           </div>
