@@ -28,6 +28,7 @@ export default function App() {
   }]);
 
   const [editingId, setEditingId] = useState(null);
+  const [educationIsExpanded, setEducationIsExpanded] = useState(false);
 
   function handlePersonalChange(e) {
     setPerson({
@@ -65,11 +66,25 @@ export default function App() {
     setEditingId(newId);
   }
 
+  let educationContent;
   let addEducationContent;
-  if (!editingId) {
+
+  if (educationIsExpanded) {
+      if (!editingId) {
     addEducationContent = <div className="add-education-section">
       <button onClick={createNewEducation}><img src='/src/assets/add.svg' alt='Plus icon' />Education</button>
     </div>
+  }
+    educationContent = <>
+      <EducationEditList
+        list={educationList}
+        setList={setEducationList}
+        onChange={handleEducationChange}
+        setEditingId={setEditingId}
+        editingId={editingId}
+      />
+    { addEducationContent }
+    </>
   }
 
   return (
@@ -85,18 +100,11 @@ export default function App() {
           </div>
 
           <div className="education-list">
-            <div className="education-header">
-              <h3><img src="/src/assets/education.svg" alt="graduation hat" /> Education</h3>
+            <div className="education-header" onClick={() => setEducationIsExpanded(!educationIsExpanded)}>
+              <h3><img src="/src/assets/education.svg" alt="graduation hat" />Education</h3>
               <img src="/src/assets/down.svg" alt="down arrow icon" />
             </div>
-            <EducationEditList
-              list={educationList}
-              setList={setEducationList}
-              onChange={handleEducationChange}
-              setEditingId={setEditingId}
-              editingId={editingId}
-            />
-            {addEducationContent}
+            {educationContent}
           </div>
 
         </div>
