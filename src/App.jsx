@@ -51,6 +51,20 @@ export default function App() {
     ])
   }
 
+  function createNewEducation() {
+    const newId = crypto.randomUUID()
+    handleAddEducation({
+      id: newId,
+      school: '',
+      degree: '',
+      startDate: '',
+      endDate: '',
+      location: ''
+    })
+
+    setEditingId(newId);
+  }
+
 
   return (
     <>
@@ -73,10 +87,12 @@ export default function App() {
               list={educationList}
               setList={setEducationList}
               onChange={handleEducationChange}
-              onAdd={handleAddEducation}
               setEditingId={setEditingId}
               editingId={editingId}
             />
+            <div className="add-education-section">
+              <button onClick={createNewEducation}><img src='/src/assets/add.svg' alt='Plus icon' />Education</button>
+            </div>
           </div>
 
         </div>
@@ -135,7 +151,7 @@ function EducationRenderList({ list }) {
   )
 }
 
-function EducationEditList({ list, setList, onChange, onAdd, setEditingId, editingId }) {
+function EducationEditList({ list, setList, onChange, setEditingId, editingId }) {
 
   function handleDelete(targetId) {
     setList(
@@ -143,20 +159,6 @@ function EducationEditList({ list, setList, onChange, onAdd, setEditingId, editi
         item.id !== targetId
       )
     )
-  }
-
-  function handleAddItem() {
-    const newId = crypto.randomUUID()
-    onAdd({
-      id: newId,
-      school: '',
-      degree: '',
-      startDate: '',
-      endDate: '',
-      location: ''
-    })
-
-    setEditingId(newId);
   }
 
   //Edit Mode on a Single Item
@@ -179,7 +181,6 @@ function EducationEditList({ list, setList, onChange, onAdd, setEditingId, editi
     return (
       <>
         <ul>{displayedList}</ul>
-        <button onClick={handleAddItem}><img src='/src/assets/add.svg' alt='Plus icon' /> Education</button>
       </>
     )
   }

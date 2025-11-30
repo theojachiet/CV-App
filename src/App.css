@@ -39,8 +39,7 @@ input {
   width: 400px;
 }
 
-.personal-info,
-.education {
+.personal-info {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -60,7 +59,3 @@ input {
 }
 
 /* EDUCATION LIST  */
-
-.education-list {
-  color: inherit;
-}
