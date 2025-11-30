@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import './CV.css'
-import {EducationRenderList, EducationEditList} from './Education.jsx';
+import { EducationRenderList, EducationEditList } from './Education.jsx';
 import { CustomInput } from './utils.jsx';
 
 export default function App() {
@@ -68,26 +68,25 @@ export default function App() {
     setEditingId(newId);
   }
 
-  let educationContent;
   let addEducationContent;
-
   if (educationIsExpanded) {
-      if (!editingId) {
-    addEducationContent = <div className="add-education-section">
-      <button onClick={createNewEducation}><img src='/src/assets/add.svg' alt='Plus icon' />Education</button>
-    </div>
+    if (!editingId) {
+      addEducationContent = <div className="add-education-section">
+        <button onClick={createNewEducation}><img src='/src/assets/add.svg' alt='Plus icon' />Education</button>
+      </div>
+    }
   }
-    educationContent = <>
-      <EducationEditList
-        list={educationList}
-        setList={setEducationList}
-        onChange={handleEducationChange}
-        setEditingId={setEditingId}
-        editingId={editingId}
-      />
-    { addEducationContent }
-    </>
-  }
+  
+  let educationContent = <>
+    <EducationEditList
+      list={educationList}
+      setList={setEducationList}
+      onChange={handleEducationChange}
+      setEditingId={setEditingId}
+      editingId={editingId}
+    />
+    {addEducationContent}
+  </>
 
   return (
     <>
@@ -108,7 +107,7 @@ export default function App() {
                 <img src="/src/assets/down.svg" alt="down arrow icon" />
               </div>
             </button>
-            {educationContent}
+            <div className={`education-content ${educationIsExpanded ? "expanded" : ""}`}>{educationContent}</div>
           </div>
 
         </div>
