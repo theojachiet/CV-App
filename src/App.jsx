@@ -65,6 +65,12 @@ export default function App() {
     setEditingId(newId);
   }
 
+  let addEducationContent;
+  if (!editingId) {
+    addEducationContent = <div className="add-education-section">
+      <button onClick={createNewEducation}><img src='/src/assets/add.svg' alt='Plus icon' />Education</button>
+    </div>
+  }
 
   return (
     <>
@@ -90,9 +96,7 @@ export default function App() {
               setEditingId={setEditingId}
               editingId={editingId}
             />
-            <div className="add-education-section">
-              <button onClick={createNewEducation}><img src='/src/assets/add.svg' alt='Plus icon' />Education</button>
-            </div>
+            {addEducationContent}
           </div>
 
         </div>
@@ -165,7 +169,7 @@ function EducationEditList({ list, setList, onChange, setEditingId, editingId })
   if (editingId) {
     const editedItem = list.find(element => element.id === editingId);
     return (
-      <li key={editedItem.id}>
+      <li key={editedItem.id} className='editing-item'>
         <EducationItemEdit item={editedItem} onDelete={handleDelete} onEdit={onChange} id={editedItem.id} setEditingId={setEditingId} editingId={editingId} />
       </li>
     )
@@ -195,17 +199,21 @@ function EducationItemEdit({ item, onEdit, onDelete, id, editingId, setEditingId
         <div className="education-form">
           <CustomInput id="school" description="School" value={item.school} onChange={e => onEdit(id, 'school', e.target.value)} />
           <CustomInput id="degree" description="Degree" value={item.degree} onChange={e => onEdit(id, 'degree', e.target.value)} />
-          <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={e => onEdit(id, 'startDate', e.target.value)} />
-          <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => onEdit(id, 'endDate', e.target.value)} />
+          <div className="dates">
+            <CustomInput id="startDate" description="Start Date" value={item.startDate} onChange={e => onEdit(id, 'startDate', e.target.value)} />
+            <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => onEdit(id, 'endDate', e.target.value)} />
+          </div>
           <CustomInput id="location" description="Location" value={item.location} onChange={e => onEdit(id, 'location', e.target.value)} />
         </div>
-        <button onClick={() => setEditingId(null)}>Save <img src="/src/assets/save.svg" alt="save icon" /></button >
-        <button onClick={() => {
-          onDelete(item.id);
-          setEditingId(null);
-        }}>
-          <img src='/src/assets/delete.svg' alt='delete icon' />
-        </button>
+        <div className="options">
+          <button onClick={() => setEditingId(null)}>Save <img src="/src/assets/save.svg" alt="save icon" /></button >
+          <button onClick={() => {
+            onDelete(item.id);
+            setEditingId(null);
+          }}>
+            <img src='/src/assets/delete.svg' alt='delete icon' />
+          </button>
+        </div>
       </>
     )
   } else {
