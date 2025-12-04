@@ -5,3 +5,11 @@ export function CustomInput({ id, description, value, onChange }) {
     </label>
   )
 }
+
+export function CustomTextArea({ id, description, value, onChange }) {
+  return (
+    <label htmlFor={id}>{description}
+      <textarea id={id} value={value} onChange={onChange} />
+    </label>
+  )
+}

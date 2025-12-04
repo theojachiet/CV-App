@@ -1,4 +1,4 @@
-import { CustomInput } from "./utils.jsx";
+import { CustomInput, CustomTextArea } from "./utils.jsx";
 
 export function ExperienceRenderList({ list }) {
     if (list.length === 0) return;
@@ -75,7 +75,7 @@ export function ExperienceItemEdit({ item, onEdit, onDelete, id, editingId, setE
                         <CustomInput id="endDate" description="End Date" value={item.endDate} onChange={e => onEdit(id, 'endDate', e.target.value)} />
                     </div>
                     <CustomInput id="location" description="Location" value={item.location} onChange={e => onEdit(id, 'location', e.target.value)} />
-                    <CustomInput id="description" description="Description" value={item.description} onChange={e => onEdit(id, 'description', e.target.value)}></CustomInput>
+                    <CustomTextArea id="description" description="Description" value={item.description} onChange={e => onEdit(id, 'description', e.target.value)} />
                 </div>
                 <div className="options">
                     <button className='delete'
