@@ -84,7 +84,7 @@ button {
   height: 1000px;
 }
 
-/* EDUCATION LIST  */
+/* EDUCATION AND EXPERIENCE LIST  */
 
 .education-toggle,
 .experience-toggle {
@@ -154,7 +154,7 @@ li.editing-item .options .delete {
   padding: 5px 10px;
 }
 
-/* EDUCATION EDIT ITEM  */
+/* EDUCATION AND EXPERIENCE EDIT ITEM  */
 
 li.editing-item {
   display: flex;
@@ -162,20 +162,23 @@ li.editing-item {
   border-radius: 0px 0px 10px 10px;
 }
 
-.education-form {
+.education-form,
+.experience-form {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
 
-.education-form .dates {
+.education-form .dates,
+.experience-form .dates {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
 }
 
-.education-form .dates input {
+.education-form .dates input,
+.experience-form .dates input {
   width: 100%;
 }
 
