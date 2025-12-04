@@ -153,6 +153,11 @@ export default function App() {
     {addExperienceContent}
   </>
 
+  function handleEducationToggle() {
+    setEducationIsExpanded(!educationIsExpanded);
+    if (educationIsExpanded) setExperienceIsExpanded(false);
+  }
+
   return (
     <>
       <div className="app-container">
@@ -166,7 +171,7 @@ export default function App() {
           </div>
 
           <div className="education-list">
-            <button onClick={() => setEducationIsExpanded(!educationIsExpanded)} className={`education-toggle ${(educationIsExpanded) ? "open" : ""}`}>
+            <button onClick={handleEducationToggle} className={`education-toggle ${(educationIsExpanded) ? "open" : ""}`}>
               <h3><img src="/src/assets/education.svg" alt="graduation hat" />Education</h3>
               <img src="/src/assets/down.svg" alt="down arrow icon" className={`arrow ${educationIsExpanded ? "rotated" : ""}`} />
             </button>
@@ -175,7 +180,7 @@ export default function App() {
 
           <div className="experience-list">
             <button onClick={() => setExperienceIsExpanded(!experienceIsExpanded)} className={`experience-toggle ${(experienceIsExpanded) ? "open" : ""}`}>
-              <h3><img src="/src/assets/education.svg" alt="graduation hat" />Professionnal Experiences</h3>
+              <h3><img src="/src/assets/experience.svg" alt="graduation hat" />Professionnal Experiences</h3>
               <img src="/src/assets/down.svg" alt="down arrow icon" className={`arrow ${experienceIsExpanded ? "rotated" : ""}`} />
             </button>
             <div className={`experience-content ${experienceIsExpanded ? "expanded" : ""}`}>{experienceContent}</div>

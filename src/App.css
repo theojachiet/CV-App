@@ -86,7 +86,8 @@ button {
 
 /* EDUCATION LIST  */
 
-.education-toggle {
+.education-toggle,
+.experience-toggle {
   display: block;
   width: 100%;
   border-radius: 10px 10px 0px 0px;
@@ -98,23 +99,27 @@ button {
   transition: border-radius 0.4s ease;
 }
 
-.education-toggle.open {
+.education-toggle.open,
+.experience-toggle.open {
   border-radius: 10px 10px 0px 0px;
 }
 
-.education-toggle h3 {
+.education-toggle h3,
+.experience-toggle h3 {
   display: flex;
   gap: 1rem;
 }
 
-.education-list ul {
+.education-list ul,
+.experience-list ul {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin: 6px 0px;
 }
 
-.education-list li {
+.education-list li,
+.experience-list li {
   background-color: white;
   padding: 12px 25px;
   font-weight: 600;
@@ -123,18 +128,21 @@ button {
   align-items: center;
 }
 
-.education-list li .options {
+.education-list li .options
+.experience-list li .options {
   display: flex;
   gap: 1rem;
 }
 
-.add-education-section {
+.add-education-section,
+.add-experience-section {
   background-color: white;
   padding: 1rem;
   border-radius: 0px 0px 10px 10px;
 }
 
 .add-education-section button,
+.add-experience-section button,
 li.editing-item .options .save,
 li.editing-item .options .delete {
   font-weight: 500;
@@ -187,14 +195,16 @@ li.editing-item .options .delete {
 
 /* TRANSITIONS EFFECTS  */
 
-.education-content {
+.education-content,
+.experience-content {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s ease, opacity 0.2s ease-in-out;
   opacity: 0;
 }
 
-.education-content.expanded {
+.education-content.expanded,
+.experience-content.expanded {
   max-height: fit-content;
   opacity: 1;
 }
