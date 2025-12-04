@@ -1,9 +1,24 @@
 import { useState } from 'react'
+import html2pdf from "html2pdf.js/dist/html2pdf.bundle.min";
 import './App.css'
 import './CV.css'
 import { EducationRenderList, EducationEditList } from './Education.jsx';
 import { CustomInput } from './utils.jsx';
 import { ExperienceRenderList, ExperienceEditList } from './Experience.jsx';
+
+function downloadPDF() {
+  const cvElement = document.getElementById("cv-display");
+
+  const options = {
+    margin: 0,
+    filename: 'cv.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 3 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(options).from(cvElement).save();
+}
 
 export default function App() {
 
@@ -186,9 +201,11 @@ export default function App() {
             <div className={`experience-content ${experienceIsExpanded ? "expanded" : ""}`}>{experienceContent}</div>
           </div>
 
+          <button onClick={downloadPDF}>Download CV as PDF</button>
+
         </div>
 
-        <div className="cv-container">
+        <div id='cv-display' className="cv-container">
           <div className="cv-header">
             <h1>{person.fullName}</h1>
 
