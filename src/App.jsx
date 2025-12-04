@@ -40,7 +40,8 @@ export default function App() {
     description: 'qsdmlfkj qosfj lqkmdsfj klqdshfk ljqsdhflkj qdsflkjh qkjlsdfh kjlqsh f klqhs fdk ljqshfkjl qdsiul fu zaioufqdsioufh iouq sdhfiuoqsdfiouqdshiuof dhsq'
   }])
 
-  const [editingId, setEditingId] = useState(null);
+  const [educationEditingId, setEducationEditingId] = useState(null);
+  const [experienceEditingId, setExperienceEditingId] = useState(null);
   const [educationIsExpanded, setEducationIsExpanded] = useState(false);
   const [experienceIsExpanded, setExperienceIsExpanded] = useState(false);
 
@@ -114,7 +115,7 @@ export default function App() {
 
   let addEducationContent;
   if (educationIsExpanded) {
-    if (!editingId) {
+    if (!educationEditingId) {
       addEducationContent = <div className="add-education-section">
         <button onClick={createNewEducation}><img src='/src/assets/add.svg' alt='Plus icon' />Education</button>
       </div>
@@ -126,15 +127,15 @@ export default function App() {
       list={educationList}
       setList={setEducationList}
       onChange={handleEducationChange}
-      setEditingId={setEditingId}
-      editingId={editingId}
+      setEditingId={setEducationEditingId}
+      editingId={educationEditingId}
     />
     {addEducationContent}
   </>
 
   let addExperienceContent;
   if (experienceIsExpanded) {
-    if (!editingId) {
+    if (!experienceEditingId) {
       addExperienceContent = <div className="add-experience-section">
         <button onClick={createNewExperience}><img src='/src/assets/add.svg' alt='Plus icon' />Experience</button>
       </div>
@@ -146,8 +147,8 @@ export default function App() {
       list={experienceList}
       setList={setExperienceList}
       onChange={handleExperienceChange}
-      setEditingId={setEditingId}
-      editingId={editingId}
+      setEditingId={setExperienceEditingId}
+      editingId={experienceEditingId}
     />
     {addExperienceContent}
   </>
