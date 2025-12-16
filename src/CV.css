@@ -31,9 +31,22 @@ label {
 }
 
 /* BODY CV  */
+
+.cv-section {
+  margin: 10px;
+}
+
 h2 {
-  text-align: center;
-  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+  line-height: 1.8;
+
+  margin: 20px 0px;
+  padding: 0;
+
   font-weight: 500;
   background-color: rgb(162, 162, 241);
 }
