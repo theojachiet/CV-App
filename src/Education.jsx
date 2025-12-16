@@ -81,9 +81,9 @@ export function EducationItemEdit({ item, onEdit, onDelete, id, editingId, setEd
               onDelete(item.id);
               setEditingId(null);
             }}>
-            <img src='/src/assets/delete.svg' alt='delete icon' />Delete
+            <img src='/assets/delete.svg' alt='delete icon' />Delete
           </button>
-          <button onClick={() => setEditingId(null)} className='save'><img src="/src/assets/save.svg" alt="save icon" />Save</button >
+          <button onClick={() => setEditingId(null)} className='save'><img src="/assets/save.svg" alt="save icon" />Save</button >
         </div>
       </>
     )
@@ -94,8 +94,8 @@ export function EducationItemEdit({ item, onEdit, onDelete, id, editingId, setEd
           {item.school}
         </p>
         <div className="options">
-          <button onClick={() => setEditingId(item.id)}><img src='/src/assets/edit.svg' alt='edit icon' /></button>
-          <button onClick={() => onDelete(item.id)}><img src='/src/assets/delete.svg' alt='delete icon' /></button>
+          <button onClick={() => setEditingId(item.id)}><img src='/assets/edit.svg' alt='edit icon' /></button>
+          <button onClick={() => onDelete(item.id)}><img src='/assets/delete.svg' alt='delete icon' /></button>
         </div>
       </>
     )

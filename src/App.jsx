@@ -132,7 +132,7 @@ export default function App() {
   if (educationIsExpanded) {
     if (!educationEditingId) {
       addEducationContent = <div className="add-education-section">
-        <button onClick={createNewEducation}><img src='/src/assets/add.svg' alt='Plus icon' />Education</button>
+        <button onClick={createNewEducation}><img src='/assets/add.svg' alt='Plus icon' />Education</button>
       </div>
     }
   }
@@ -152,7 +152,7 @@ export default function App() {
   if (experienceIsExpanded) {
     if (!experienceEditingId) {
       addExperienceContent = <div className="add-experience-section">
-        <button onClick={createNewExperience}><img src='/src/assets/add.svg' alt='Plus icon' />Experience</button>
+        <button onClick={createNewExperience}><img src='/assets/add.svg' alt='Plus icon' />Experience</button>
       </div>
     }
   }
@@ -187,16 +187,16 @@ export default function App() {
 
           <div className="education-list">
             <button onClick={handleEducationToggle} className={`education-toggle ${(educationIsExpanded) ? "open" : ""}`}>
-              <h3><img src="/src/assets/education.svg" alt="graduation hat" />Education</h3>
-              <img src="/src/assets/down.svg" alt="down arrow icon" className={`arrow ${educationIsExpanded ? "rotated" : ""}`} />
+              <h3><img src="/assets/education.svg" alt="graduation hat" />Education</h3>
+              <img src="/assets/down.svg" alt="down arrow icon" className={`arrow ${educationIsExpanded ? "rotated" : ""}`} />
             </button>
             <div className={`education-content ${educationIsExpanded ? "expanded" : ""}`}>{educationContent}</div>
           </div>
 
           <div className="experience-list">
             <button onClick={() => setExperienceIsExpanded(!experienceIsExpanded)} className={`experience-toggle ${(experienceIsExpanded) ? "open" : ""}`}>
-              <h3><img src="/src/assets/experience.svg" alt="graduation hat" />Professionnal Experiences</h3>
-              <img src="/src/assets/down.svg" alt="down arrow icon" className={`arrow ${experienceIsExpanded ? "rotated" : ""}`} />
+              <h3><img src="/assets/experience.svg" alt="graduation hat" />Professionnal Experiences</h3>
+              <img src="/assets/down.svg" alt="down arrow icon" className={`arrow ${experienceIsExpanded ? "rotated" : ""}`} />
             </button>
             <div className={`experience-content ${experienceIsExpanded ? "expanded" : ""}`}>{experienceContent}</div>
           </div>
