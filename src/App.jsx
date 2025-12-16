@@ -201,7 +201,7 @@ export default function App() {
             <div className={`experience-content ${experienceIsExpanded ? "expanded" : ""}`}>{experienceContent}</div>
           </div>
 
-          <button onClick={downloadPDF}>Download CV as PDF</button>
+          <button className='pdf' onClick={downloadPDF}>Download CV as PDF</button>
 
         </div>
 
